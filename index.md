@@ -8,6 +8,7 @@ title: Home
 
 | Date | Test Status | centos-10 | fedora-41 | ubuntu-22.04 | ubuntu-24.04 |
 |:--:|:--:|:--:|:--:|:--:|:--:|
+| 20240101 | 🟢 |    |  [x86_64](https://dhfsudhfuodhfo) |    |  [x86_64](https://dhfsudhfuodhfo) [arm64](https://dhfsudhfuodasfdasfo) | 
 | 20230119 | 🟢 |    |  [x86_64](https://dhfsudhfuodhfo) |  [x86_64](https://dhfsudhfuodhfo) [arm64](https://dhfsudhfuodasfdasfo) |  [x86_64](https://dhfsudhfuodhfo) [arm64](https://dhfsudhfuodasfdasfo) | 
 | 20230109 | 🟢 |    |  [x86_64](https://dhfsudhfuodhfo) |    |  [x86_64](https://dhfsudhfuodhfo) [arm64](https://dhfsudhfuodasfdasfo) | 
 | 20230108 | 🟢 |    |  [x86_64](https://dhfsudhfuodhfo) |    |  [x86_64](https://dhfsudhfuodhfo) [arm64](https://dhfsudhfuodasfdasfo) | 
