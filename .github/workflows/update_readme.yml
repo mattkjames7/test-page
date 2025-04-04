@@ -1,0 +1,46 @@
+name: Update README
+
+on:
+  workflow_dispatch:
+    inputs:
+      table:
+        type: choice
+        description: 'Name of the table being updated'
+        required: true
+        default: 'memgraph'
+        options:
+          - 'memgraph'
+          - 'mage'
+      limit:
+        type: integer
+        description: 'Maximum number of daily builds to keep'
+        required: true
+        default: 42
+      build_data:
+        type: string
+        description: 'JSON string with data for updating the README'
+        required: true
+        default: '{}'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run update_readme.py script
+        run: |
+          # Set the JSON string to an environment variable
+          export BUILD_DATA='${{ github.event.inputs.build_data }}'
+          # Run the update script located at the repository root
+          python3 update_readme.py "${{ github.event.inputs.table }}" "${{ github.event.inputs.limit }}" "$BUILD_DATA"
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update README via workflow" || echo "No changes to commit"
+          git push
+
