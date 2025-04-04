@@ -275,7 +275,7 @@ def updateTable(table,limit,data):
     
 
     # this is the file to update
-    fname = "README.md"
+    fname = "index.md"
 
     # read thereadme in and split by relevant section
     beforeSection,tableSection,afterSection = splitPageSections(fname,table)
