@@ -62,8 +62,10 @@ jobs:
           echo "Table: ${{ github.event.client_payload.table }}"
           echo "Limit: ${{ github.event.client_payload.limit }}"
           echo "Build Data: ${{ github.event.client_payload.build_data }}"
-          # Run the update script using the inputs from client_payload
-          python3 update_readme.py "${{ github.event.client_payload.table }}" "${{ github.event.client_payload.limit }}" "${{ github.event.client_payload.build_data }}"
+          # Use toJson to convert the build_data payload back into a properly escaped JSON string
+          export BUILD_DATA='${{ toJson(github.event.client_payload.build_data) }}'
+          echo "BUILD_DATA: $BUILD_DATA"
+          python3 update_readme.py "${{ github.event.client_payload.table }}" "${{ github.event.client_payload.limit }}" "$BUILD_DATA"
 
       - name: Commit and push changes
         run: |
