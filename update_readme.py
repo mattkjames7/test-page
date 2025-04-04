@@ -112,8 +112,9 @@ def splitPageSections(fname,table):
         return [],[],[]
 
     with open(fname,"r") as f:
-        lines = f.readlines()
-    
+        text = f.read()
+    lines = text.split("\n")
+
     # limit to lines between `## {table}` and either the nect section or the end
     use = False
     beforeSection = 0
@@ -292,6 +293,7 @@ def updateTable(table,limit,data):
 
     # recombine markdown lines
     lines = beforeSection + beforeTable + newtable + afterTable + afterSection
+    print(len(beforeSection))
 
     # update readme
     updateReadme(fname,lines)

@@ -3,9 +3,13 @@ from update_readme import splitPageSections,splitTableSection,updateTable,parseT
 
 jsondata = """
 {
-    "date": 20230109,
+    "date": 20230119,
     "tests": "pass",
     "packages": {
+        "ubuntu-22.04": {
+            "x86_64": "https://dhfsudhfuodhfo",
+            "arm64": "https://dhfsudhfuodasfdasfo"
+        },
         "ubuntu-24.04": {
             "x86_64": "https://dhfsudhfuodhfo",
             "arm64": "https://dhfsudhfuodasfdasfo"
