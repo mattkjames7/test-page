@@ -263,6 +263,7 @@ def updateTable(table,limit,data):
     Updates a specific table in the daily release page with the latest release links
     
     """
+    limit = int(limit)
 
     # read json data
     data = json.loads(data)
