@@ -47,7 +47,9 @@ def parseTableRow(line,cols):
     """
 
     # split colum into cells
-    cells =  [cell.strip() for cell in line.split("|")]
+    ind0 = line.find("|")
+    ind1 = line.rfind("|")
+    cells =  [cell.strip() for cell in line[ind0+1:ind1].split("|")]
 
     # get the date (first column)
     date = int(cells[0])
@@ -56,7 +58,7 @@ def parseTableRow(line,cols):
     out = {}
     for cell,col in zip(cells[1:],cols[1:]):
         if col == "tests":
-            out[col] = testMap.get(col.strip(),"unknown")
+            out[col] = testMap.get(cell.strip(),"unknown")
         else:
             if cell:
                 links = cell.split()
@@ -79,6 +81,8 @@ def parseTable(lines):
     containing all links
     
     """
+    if len(lines) == 0:
+        return {}
 
     # assume the first line has the column names
     colheaders = lines[0]
@@ -146,7 +150,7 @@ def splitTableSection(lines):
     """
     # map each line to whether they contain part of a table
     hasTable = []
-    for i,line in lines:
+    for line in lines:
         linestrip = line.strip()
         hasTable.append(linestrip.startswith("|"))
 
@@ -200,7 +204,7 @@ def tableRow(date,data,cols):
                 #format links for builds present
                 linkData = data[col]
                 linkMarkdowns = []
-                for arch,url in linkData.keys():
+                for arch,url in linkData.items():
                     linkMarkdowns.append(f"[{arch}]({url})")
                 linkMarkdown = " ".join(linkMarkdowns)
                 line += f" {linkMarkdown} | "
@@ -221,7 +225,7 @@ def generateTable(data,limit):
     # now, collect column names
     cols = []
     for date,items in data.items():
-        cols.append(list(items.keys()))
+        cols.extend(list(items.keys()))
     cols = list(set(cols))
 
     # order the columns "date", "tests", all of the others in alphabetical order
@@ -237,7 +241,7 @@ def generateTable(data,limit):
 
     # format each date row
     for date in keys:
-        lines.append(tableRow(date,data[keys],cols))
+        lines.append(tableRow(date,data[date],cols))
 
     return lines
 
@@ -262,8 +266,14 @@ def updateTable(table,limit,data):
     # read json data
     data = json.loads(data)
 
+    # repackage it to match format of table data
+    rowdata = data["packages"]
+    rowdata["tests"] = data.get("tests","unknown")
+    data = {data["date"]: rowdata}
+    
+
     # this is the file to update
-    fname = "target-repo/README.md"
+    fname = "README.md"
 
     # read thereadme in and split by relevant section
     beforeSection,tableSection,afterSection = splitPageSections(fname,table)
