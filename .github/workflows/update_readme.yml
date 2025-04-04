@@ -1,6 +1,9 @@
 name: Update README
 
 on:
+  repository_dispatch:
+    types: [trigger_update_readme]
+
   workflow_dispatch:
     inputs:
       table:
@@ -24,6 +27,7 @@ on:
 
 jobs:
   update-readme:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -46,3 +50,25 @@ jobs:
           git commit -m "Update README via workflow" || echo "No changes to commit"
           git push
 
+  update-readme-remote:
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run update_readme.py script
+        run: |
+          echo "Table: ${{ github.event.client_payload.table }}"
+          echo "Limit: ${{ github.event.client_payload.limit }}"
+          echo "Build Data: ${{ github.event.client_payload.build_data }}"
+          # Run the update script using the inputs from client_payload
+          python3 update_readme.py "${{ github.event.client_payload.table }}" "${{ github.event.client_payload.limit }}" "${{ github.event.client_payload.build_data }}"
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add index.md
+          git commit -m "Update README via workflow dispatch" || echo "No changes to commit"
+          git push
