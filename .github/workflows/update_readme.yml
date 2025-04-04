@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TEST_PAGE_PAT }}
 
       - name: Run update_readme.py script
         run: |
