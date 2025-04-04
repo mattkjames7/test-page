@@ -267,6 +267,8 @@ def updateTable(table,limit,data):
 
     # read json data
     data = json.loads(data)
+    if isinstance(data, str):
+        data = json.loads(data)
 
     # repackage it to match format of table data
     rowdata = data["packages"]
