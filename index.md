@@ -8,8 +8,8 @@ title: Home
 .container,
 .site-container,
 .page-container {
-  max-width: 100% !important;
-  width: 100% !important;
+  max-width: 90% !important;
+  width: 90% !important;
   margin-left: 5% !important;
   margin-right: 5% !important;
   margin-top: 0 !important;   /* or a smaller value if you want some spacing */
