@@ -10,8 +10,13 @@ title: Home
 .page-container {
   max-width: 100% !important;
   width: 100% !important;
-  margin: 5% !important;    /* Remove all margins */
-  padding: 0 !important;   /* Remove all padding */
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+  margin-top: 0 !important;   /* or a smaller value if you want some spacing */
+  margin-bottom: 0 !important;
+  /* Optionally adjust padding if you still want some */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 </style>
 
