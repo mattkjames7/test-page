@@ -2,6 +2,17 @@
 layout: default
 title: Home
 ---
+<style>
+/* Override the container element’s width */
+.container,
+.site-container,
+.page-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;  /* Remove padding, if desired */
+}
+</style>
+
 # Daily Builds
 
 # Memgraph
